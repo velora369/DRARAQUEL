@@ -43,12 +43,12 @@ export default function HeroSection() {
                 </span>
               </div>
               <h1
-                className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-foreground leading-relaxed"
+                className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-foreground"
                 data-testid="text-hero-title"
               >
-                Harmonização e estética facial para{" "}
-                <span className="text-gradient">realçar sua beleza</span>{" "}
-                com naturalidade
+                <span className="block leading-tight">Harmonização e estética facial</span>
+                <span className="block leading-tight mt-2">para <span className="text-gradient">realçar sua beleza</span></span>
+                <span className="block leading-tight mt-2">com naturalidade</span>
               </h1>
             </div>
 
