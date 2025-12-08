@@ -1,15 +1,5 @@
 import { Badge } from "@/components/ui/badge";
-import {
-  Smile,
-  Heart,
-  Sparkles,
-  Stethoscope,
-  Crown,
-  CircleDot,
-  AlignVerticalSpaceAround,
-  Syringe,
-  Scissors,
-} from "lucide-react";
+import { Heart, Sparkles, Crown } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const mainTreatments = [
@@ -38,32 +28,26 @@ const mainTreatments = [
 
 const otherServices = [
   {
-    icon: Smile,
     title: "Dentística",
     description: "Restaurações estéticas e funcionais",
   },
   {
-    icon: Stethoscope,
     title: "Prótese",
     description: "Próteses fixas e removíveis",
   },
   {
-    icon: CircleDot,
     title: "Endodontia",
     description: "Tratamento de canal especializado",
   },
   {
-    icon: AlignVerticalSpaceAround,
     title: "Ortodontia",
     description: "Alinhamento e correção dental",
   },
   {
-    icon: Syringe,
     title: "Implantodontia",
     description: "Implantes dentários modernos",
   },
   {
-    icon: Scissors,
     title: "Cirurgia Bucomaxilofacial",
     description: "Procedimentos cirúrgicos especializados",
   },
@@ -132,19 +116,14 @@ export default function TreatmentsSection() {
             {otherServices.map((service, index) => (
               <div
                 key={index}
-                className={`glass-card p-4 rounded-2xl flex items-center gap-4 hover-lift transition-all duration-300 ${isVisible ? "animate-slide-up" : "opacity-0"}`}
+                className={`glass-card p-4 rounded-2xl hover-lift transition-all duration-300 ${isVisible ? "animate-slide-up" : "opacity-0"}`}
                 style={{ animationDelay: `${400 + index * 50}ms` }}
                 data-testid={`card-service-${index}`}
               >
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-secondary/20 to-primary/10 flex items-center justify-center flex-shrink-0 icon-container">
-                  <service.icon className="w-5 h-5 text-secondary" />
-                </div>
-                <div>
-                  <p className="font-medium text-foreground">{service.title}</p>
-                  <p className="text-sm text-muted-foreground">
-                    {service.description}
-                  </p>
-                </div>
+                <p className="font-medium text-foreground">{service.title}</p>
+                <p className="text-sm text-muted-foreground">
+                  {service.description}
+                </p>
               </div>
             ))}
           </div>
