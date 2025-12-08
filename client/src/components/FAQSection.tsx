@@ -4,6 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const faqs = [
   {
@@ -39,18 +40,22 @@ const faqs = [
 ];
 
 export default function FAQSection() {
+  const { ref, isVisible } = useScrollAnimation(0.1);
+
   return (
-    <section className="py-20 lg:py-32 bg-background" data-testid="section-faq">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6">
-        <div className="text-center space-y-4 mb-16">
-          <p className="text-secondary font-medium tracking-wide uppercase text-sm">
+    <section ref={ref} className="py-20 lg:py-32 bg-background relative overflow-hidden" data-testid="section-faq">
+      <div className="absolute top-1/2 left-0 w-72 h-72 bg-accent/30 rounded-full blur-3xl -translate-y-1/2" />
+      
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 relative z-10">
+        <div className={`text-center space-y-4 mb-16 ${isVisible ? "animate-slide-up" : "opacity-0"}`}>
+          <p className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/10 text-secondary text-sm font-medium mx-auto">
             Tire suas dúvidas
           </p>
           <h2
             className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground"
             data-testid="text-faq-title"
           >
-            Perguntas Frequentes
+            Perguntas <span className="text-gradient">Frequentes</span>
           </h2>
         </div>
 
@@ -64,15 +69,16 @@ export default function FAQSection() {
             <AccordionItem
               key={index}
               value={`item-${index}`}
-              className="border rounded-md px-4"
+              className={`glass-card rounded-2xl px-6 border-0 overflow-hidden hover-lift transition-all duration-300 ${isVisible ? "animate-slide-up" : "opacity-0"}`}
+              style={{ animationDelay: `${200 + index * 80}ms` }}
               data-testid={`accordion-item-${index}`}
             >
-              <AccordionTrigger className="text-left hover:no-underline py-4">
+              <AccordionTrigger className="text-left hover:no-underline py-5 gap-4">
                 <span className="font-medium text-foreground">
                   {faq.question}
                 </span>
               </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground pb-4">
+              <AccordionContent className="text-muted-foreground pb-5 leading-relaxed">
                 {faq.answer}
               </AccordionContent>
             </AccordionItem>

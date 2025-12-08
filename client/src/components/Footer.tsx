@@ -1,4 +1,4 @@
-import { MessageCircle, Instagram, MapPin, Phone } from "lucide-react";
+import { MessageCircle, Instagram, MapPin, Phone, ArrowUp } from "lucide-react";
 
 const navLinks = [
   { label: "Início", href: "#inicio" },
@@ -15,15 +15,22 @@ export default function Footer() {
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      const offsetTop = element.getBoundingClientRect().top + window.pageYOffset - 80;
+      window.scrollTo({ top: offsetTop, behavior: "smooth" });
     }
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
     <footer
-      className="bg-foreground text-background py-16"
+      className="bg-foreground text-background py-16 relative"
       data-testid="footer"
     >
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-background/20 to-transparent" />
+      
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="grid md:grid-cols-3 gap-12 mb-12">
           <div className="space-y-4">
@@ -39,7 +46,7 @@ export default function Footer() {
                 href="https://wa.me/5561982184800"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-md bg-background/10 flex items-center justify-center hover-elevate"
+                className="w-10 h-10 rounded-xl bg-background/10 flex items-center justify-center hover:bg-background/20 transition-all duration-300"
                 data-testid="link-footer-whatsapp"
               >
                 <MessageCircle className="w-5 h-5" />
@@ -48,7 +55,7 @@ export default function Footer() {
                 href="https://instagram.com/draraquelsaraiva"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-md bg-background/10 flex items-center justify-center hover-elevate"
+                className="w-10 h-10 rounded-xl bg-background/10 flex items-center justify-center hover:bg-background/20 transition-all duration-300"
                 data-testid="link-footer-instagram"
               >
                 <Instagram className="w-5 h-5" />
@@ -91,11 +98,19 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-background/10 pt-8 text-center">
-          <p className="text-background/50 text-sm">
+        <div className="border-t border-background/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-background/50 text-sm text-center sm:text-left">
             &copy; {new Date().getFullYear()} Dra. Raquel Saraiva. Atendimento
             realizado na Orallis Unique. Todos os direitos reservados.
           </p>
+          <button
+            onClick={scrollToTop}
+            className="w-10 h-10 rounded-xl bg-background/10 flex items-center justify-center hover:bg-background/20 transition-all duration-300"
+            aria-label="Voltar ao topo"
+            data-testid="button-scroll-top"
+          >
+            <ArrowUp className="w-5 h-5" />
+          </button>
         </div>
       </div>
     </footer>

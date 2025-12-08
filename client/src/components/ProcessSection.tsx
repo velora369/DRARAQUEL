@@ -1,4 +1,5 @@
 import { ClipboardCheck, Palette, Wand2, Heart } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const steps = [
   {
@@ -32,21 +33,26 @@ const steps = [
 ];
 
 export default function ProcessSection() {
+  const { ref, isVisible } = useScrollAnimation(0.1);
+
   return (
     <section
-      className="py-20 lg:py-32 bg-background"
+      ref={ref}
+      className="py-20 lg:py-32 bg-background relative overflow-hidden"
       data-testid="section-process"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="text-center space-y-4 mb-16">
-          <p className="text-secondary font-medium tracking-wide uppercase text-sm">
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/10 to-transparent" />
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+        <div className={`text-center space-y-4 mb-16 ${isVisible ? "animate-slide-up" : "opacity-0"}`}>
+          <p className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/10 text-secondary text-sm font-medium mx-auto">
             Como Funciona
           </p>
           <h2
             className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground"
             data-testid="text-process-title"
           >
-            Entenda o Atendimento
+            Entenda o <span className="text-gradient">Atendimento</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Um processo cuidadoso e transparente do início ao fim
@@ -54,24 +60,25 @@ export default function ProcessSection() {
         </div>
 
         <div className="relative">
-          <div className="hidden lg:block absolute top-24 left-0 right-0 h-0.5 bg-border" />
+          <div className="hidden lg:block absolute top-28 left-[10%] right-[10%] h-0.5 bg-gradient-to-r from-primary/20 via-secondary/40 to-primary/20" />
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {steps.map((step, index) => (
               <div
                 key={index}
-                className="relative text-center space-y-4"
+                className={`relative text-center space-y-4 group ${isVisible ? "animate-slide-up" : "opacity-0"}`}
+                style={{ animationDelay: `${200 + index * 150}ms` }}
                 data-testid={`card-step-${index}`}
               >
                 <div className="relative inline-block">
-                  <div className="w-20 h-20 rounded-full bg-secondary text-secondary-foreground flex items-center justify-center mx-auto shadow-lg">
-                    <step.icon className="w-8 h-8" />
+                  <div className="w-24 h-24 rounded-full gradient-primary flex items-center justify-center mx-auto shadow-xl group-hover:shadow-2xl group-hover:scale-105 transition-all duration-300 icon-container">
+                    <step.icon className="w-10 h-10 text-primary-foreground" />
                   </div>
-                  <span className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-primary text-primary-foreground text-sm font-bold flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 w-8 h-8 rounded-full bg-background border-2 border-secondary text-secondary text-sm font-bold flex items-center justify-center shadow-lg">
                     {step.number}
                   </span>
                 </div>
-                <h3 className="text-lg font-semibold text-foreground">
+                <h3 className="text-lg font-semibold text-foreground group-hover:text-gradient transition-all duration-300">
                   {step.title}
                 </h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">

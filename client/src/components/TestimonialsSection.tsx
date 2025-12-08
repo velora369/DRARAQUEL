@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 // todo: remove mock functionality - replace with real testimonials
 const mockTestimonials = [
@@ -38,6 +38,7 @@ const mockTestimonials = [
 
 export default function TestimonialsSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const { ref, isVisible } = useScrollAnimation(0.1);
 
   const visibleCards = 3;
   const maxIndex = Math.max(0, mockTestimonials.length - visibleCards);
@@ -53,46 +54,53 @@ export default function TestimonialsSection() {
   return (
     <section
       id="depoimentos"
-      className="py-20 lg:py-32 bg-card"
+      ref={ref}
+      className="py-20 lg:py-32 bg-card relative overflow-hidden"
       data-testid="section-testimonials"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="text-center space-y-4 mb-16">
-          <p className="text-secondary font-medium tracking-wide uppercase text-sm">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+      <div className="absolute bottom-20 left-10 w-80 h-80 bg-primary/5 rounded-full blur-3xl" />
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+        <div className={`text-center space-y-4 mb-16 ${isVisible ? "animate-slide-up" : "opacity-0"}`}>
+          <p className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/10 text-secondary text-sm font-medium mx-auto">
             O que dizem sobre a Dra. Raquel
           </p>
           <h2
             className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground"
             data-testid="text-testimonials-title"
           >
-            Depoimentos
+            <span className="text-gradient">Depoimentos</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Histórias reais de pacientes satisfeitas
           </p>
         </div>
 
-        <div className="relative">
+        <div className={`relative ${isVisible ? "animate-fade-in" : "opacity-0"}`} style={{ animationDelay: "200ms" }}>
           <div className="overflow-hidden">
             <div
-              className="flex gap-6 transition-transform duration-500 ease-in-out"
+              className="flex gap-6 transition-transform duration-500 ease-out"
               style={{
                 transform: `translateX(-${currentIndex * (100 / visibleCards + 2)}%)`,
               }}
             >
-              {mockTestimonials.map((testimonial) => (
-                <Card
+              {mockTestimonials.map((testimonial, index) => (
+                <div
                   key={testimonial.id}
-                  className="flex-shrink-0 w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] p-6 space-y-4"
+                  className={`flex-shrink-0 w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] glass-card rounded-3xl p-6 space-y-4 hover-lift transition-all duration-300 ${isVisible ? "animate-slide-up" : "opacity-0"}`}
+                  style={{ animationDelay: `${300 + index * 100}ms` }}
                   data-testid={`card-testimonial-${testimonial.id}`}
                 >
-                  <Quote className="w-8 h-8 text-primary/30" />
-                  <p className="text-muted-foreground leading-relaxed">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
+                    <Quote className="w-5 h-5 text-primary" />
+                  </div>
+                  <p className="text-muted-foreground leading-relaxed italic">
                     "{testimonial.text}"
                   </p>
                   <div className="flex items-center gap-3 pt-2">
-                    <Avatar>
-                      <AvatarFallback className="bg-secondary text-secondary-foreground">
+                    <Avatar className="border-2 border-primary/20">
+                      <AvatarFallback className="gradient-primary text-primary-foreground font-medium">
                         {testimonial.initials}
                       </AvatarFallback>
                     </Avatar>
@@ -105,7 +113,7 @@ export default function TestimonialsSection() {
                       </p>
                     </div>
                   </div>
-                </Card>
+                </div>
               ))}
             </div>
           </div>
@@ -116,6 +124,7 @@ export default function TestimonialsSection() {
               size="icon"
               onClick={prevSlide}
               disabled={currentIndex === 0}
+              className="rounded-full hover-lift transition-all duration-300 disabled:opacity-50"
               data-testid="button-testimonials-prev"
             >
               <ChevronLeft className="w-5 h-5" />
@@ -126,8 +135,8 @@ export default function TestimonialsSection() {
                 <button
                   key={index}
                   onClick={() => setCurrentIndex(index)}
-                  className={`w-2.5 h-2.5 rounded-full transition-colors ${
-                    index === currentIndex ? "bg-primary" : "bg-muted"
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    index === currentIndex ? "bg-primary scale-125" : "bg-muted hover:bg-muted-foreground/30"
                   }`}
                   data-testid={`button-testimonials-dot-${index}`}
                 />
@@ -139,6 +148,7 @@ export default function TestimonialsSection() {
               size="icon"
               onClick={nextSlide}
               disabled={currentIndex === maxIndex}
+              className="rounded-full hover-lift transition-all duration-300 disabled:opacity-50"
               data-testid="button-testimonials-next"
             >
               <ChevronRight className="w-5 h-5" />

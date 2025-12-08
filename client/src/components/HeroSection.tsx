@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { MessageCircle, ArrowDown, CheckCircle2 } from "lucide-react";
+import { MessageCircle, ArrowDown, Check, Sparkles } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const bulletPoints = [
   "Reabilitação oral integrada",
@@ -9,32 +10,43 @@ const bulletPoints = [
 ];
 
 export default function HeroSection() {
+  const { ref, isVisible } = useScrollAnimation(0.1);
+
   const scrollToTreatments = () => {
     const element = document.querySelector("#tratamentos");
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      const offsetTop = element.getBoundingClientRect().top + window.pageYOffset - 80;
+      window.scrollTo({ top: offsetTop, behavior: "smooth" });
     }
   };
 
   return (
     <section
       id="inicio"
-      className="min-h-screen pt-20 lg:pt-24 pb-16 lg:pb-24 flex items-center bg-gradient-to-br from-background via-background to-accent/30"
+      ref={ref}
+      className="min-h-screen pt-24 lg:pt-32 pb-16 lg:pb-24 flex items-center relative overflow-hidden"
       data-testid="section-hero"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full">
+      <div className="absolute inset-0 gradient-soft" />
+      <div className="absolute top-20 right-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl animate-float" />
+      <div className="absolute bottom-20 left-10 w-96 h-96 bg-secondary/5 rounded-full blur-3xl animate-float" style={{ animationDelay: "1.5s" }} />
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          <div className="space-y-8">
+          <div className={`space-y-8 ${isVisible ? "animate-slide-up" : "opacity-0"}`}>
             <div className="space-y-4">
-              <p className="text-secondary font-medium tracking-wide uppercase text-sm">
-                Dra. Raquel Saraiva
-              </p>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/10 text-secondary">
+                <Sparkles className="w-4 h-4" />
+                <span className="text-sm font-medium tracking-wide">
+                  Dra. Raquel Saraiva
+                </span>
+              </div>
               <h1
                 className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-foreground leading-tight"
                 data-testid="text-hero-title"
               >
                 Harmonização e estética facial para{" "}
-                <span className="text-primary">realçar sua beleza</span> com
+                <span className="text-gradient">realçar sua beleza</span> com
                 naturalidade
               </h1>
             </div>
@@ -52,10 +64,13 @@ export default function HeroSection() {
               {bulletPoints.map((point, index) => (
                 <li
                   key={index}
-                  className="flex items-center gap-3 text-foreground"
+                  className={`flex items-center gap-3 text-foreground ${isVisible ? "animate-slide-up" : "opacity-0"}`}
+                  style={{ animationDelay: `${200 + index * 100}ms` }}
                   data-testid={`text-bullet-${index}`}
                 >
-                  <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
+                  <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 icon-container">
+                    <Check className="w-3.5 h-3.5 text-primary" />
+                  </div>
                   <span>{point}</span>
                 </li>
               ))}
@@ -67,7 +82,7 @@ export default function HeroSection() {
                 onClick={() =>
                   window.open("https://wa.me/5561982184800", "_blank")
                 }
-                className="gap-2"
+                className="gap-2 rounded-full gradient-primary border-0 hover-glow hover-scale transition-all duration-300 shadow-lg"
                 data-testid="button-whatsapp-hero"
               >
                 <MessageCircle className="w-5 h-5" />
@@ -77,7 +92,7 @@ export default function HeroSection() {
                 variant="outline"
                 size="lg"
                 onClick={scrollToTreatments}
-                className="gap-2"
+                className="gap-2 rounded-full hover-lift transition-all duration-300"
                 data-testid="button-treatments-hero"
               >
                 <ArrowDown className="w-5 h-5" />
@@ -86,21 +101,23 @@ export default function HeroSection() {
             </div>
           </div>
 
-          <div className="relative">
-            <div className="aspect-[4/5] rounded-md overflow-hidden bg-muted">
+          <div className={`relative ${isVisible ? "animate-fade-in" : "opacity-0"}`} style={{ animationDelay: "300ms" }}>
+            <div className="aspect-[4/5] rounded-3xl overflow-hidden bg-muted shadow-2xl">
               <img
                 src="https://yungwizzeprod2.wordpress.com/wp-content/uploads/2025/12/nao-e-a-aparencia-e-a-essencia.-nao-e-o-dinheiro-e-a-educacao.-nao-e-a-roupa-e-a-classe.-c.webp"
                 alt="Dra. Raquel Saraiva - Especialista em Harmonização Orofacial"
                 className="w-full h-full object-cover"
+                loading="eager"
                 data-testid="img-hero-dra"
               />
             </div>
-            <div className="absolute -bottom-6 -left-6 bg-card p-6 rounded-md shadow-lg border border-card-border">
-              <p className="text-4xl font-bold text-primary">+25</p>
+            <div className="absolute -bottom-6 -left-6 glass-card p-6 rounded-2xl shadow-xl animate-float">
+              <p className="text-4xl font-bold text-gradient">+25</p>
               <p className="text-sm text-muted-foreground">
                 anos de experiência
               </p>
             </div>
+            <div className="absolute -top-4 -right-4 w-24 h-24 rounded-full gradient-primary opacity-20 blur-xl" />
           </div>
         </div>
       </div>

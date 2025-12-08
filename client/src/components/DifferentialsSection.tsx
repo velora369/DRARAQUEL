@@ -6,6 +6,7 @@ import {
   Shield,
   Clock,
 } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const differentials = [
   {
@@ -47,22 +48,29 @@ const differentials = [
 ];
 
 export default function DifferentialsSection() {
+  const { ref, isVisible } = useScrollAnimation(0.1);
+
   return (
     <section
       id="diferenciais"
-      className="py-20 lg:py-32 bg-accent/30"
+      ref={ref}
+      className="py-20 lg:py-32 relative overflow-hidden"
       data-testid="section-differentials"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="text-center space-y-4 mb-16">
-          <p className="text-secondary font-medium tracking-wide uppercase text-sm">
+      <div className="absolute inset-0 bg-gradient-to-b from-accent/20 via-accent/30 to-accent/20" />
+      <div className="absolute top-20 right-20 w-80 h-80 bg-primary/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-20 left-20 w-64 h-64 bg-secondary/5 rounded-full blur-3xl" />
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+        <div className={`text-center space-y-4 mb-16 ${isVisible ? "animate-slide-up" : "opacity-0"}`}>
+          <p className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/10 text-secondary text-sm font-medium mx-auto">
             Por que escolher a Dra. Raquel
           </p>
           <h2
             className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground"
             data-testid="text-differentials-title"
           >
-            Diferenciais
+            <span className="text-gradient">Diferenciais</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Compromisso com excelência e resultados que transformam vidas
@@ -73,13 +81,14 @@ export default function DifferentialsSection() {
           {differentials.map((item, index) => (
             <div
               key={index}
-              className="text-center space-y-4"
+              className={`text-center space-y-4 group ${isVisible ? "animate-slide-up" : "opacity-0"}`}
+              style={{ animationDelay: `${200 + index * 100}ms` }}
               data-testid={`card-differential-${index}`}
             >
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
-                <item.icon className="w-8 h-8 text-primary" />
+              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary/10 via-primary/20 to-secondary/10 flex items-center justify-center mx-auto icon-container group-hover:shadow-lg transition-all duration-300">
+                <item.icon className="w-9 h-9 text-primary" />
               </div>
-              <h3 className="text-lg font-semibold text-foreground">
+              <h3 className="text-lg font-semibold text-foreground group-hover:text-gradient transition-all duration-300">
                 {item.title}
               </h3>
               <p className="text-muted-foreground leading-relaxed">
