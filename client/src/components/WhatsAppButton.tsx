@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { MessageCircle } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 
 export default function WhatsAppButton() {
   const [isVisible, setIsVisible] = useState(false);
@@ -23,7 +23,7 @@ export default function WhatsAppButton() {
       aria-label="Abrir WhatsApp"
       data-testid="button-whatsapp-floating"
     >
-      <MessageCircle className="w-7 h-7" />
+      <FaWhatsapp className="w-7 h-7" />
       <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-500 animate-pulse" />
     </a>
   );

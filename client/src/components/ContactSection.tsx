@@ -4,13 +4,13 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import {
-  MessageCircle,
   Phone,
   MapPin,
   Clock,
   Instagram,
   Send,
 } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 import { useToast } from "@/hooks/use-toast";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
@@ -165,7 +165,7 @@ export default function ContactSection() {
                   data-testid="link-whatsapp-contact"
                 >
                   <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center icon-container">
-                    <MessageCircle className="w-6 h-6 text-primary-foreground" />
+                    <FaWhatsapp className="w-6 h-6 text-primary-foreground" />
                   </div>
                   <div>
                     <p className="font-medium text-foreground">WhatsApp</p>

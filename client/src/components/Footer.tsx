@@ -1,4 +1,5 @@
-import { MessageCircle, Instagram, MapPin, Phone, ArrowUp } from "lucide-react";
+import { Instagram, MapPin, Phone, ArrowUp } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 
 const navLinks = [
   { label: "Início", href: "#inicio" },
@@ -49,7 +50,7 @@ export default function Footer() {
                 className="w-10 h-10 rounded-xl bg-background/10 flex items-center justify-center hover:bg-background/20 transition-all duration-300"
                 data-testid="link-footer-whatsapp"
               >
-                <MessageCircle className="w-5 h-5" />
+                <FaWhatsapp className="w-5 h-5" />
               </a>
               <a
                 href="https://instagram.com/draraquelsaraiva"

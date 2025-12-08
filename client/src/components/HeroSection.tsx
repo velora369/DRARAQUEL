@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { MessageCircle, ArrowDown, Check, Sparkles } from "lucide-react";
+import { ArrowDown, Check, Sparkles } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const bulletPoints = [
@@ -42,12 +43,12 @@ export default function HeroSection() {
                 </span>
               </div>
               <h1
-                className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-foreground leading-tight"
+                className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-foreground leading-relaxed"
                 data-testid="text-hero-title"
               >
                 Harmonização e estética facial para{" "}
-                <span className="text-gradient">realçar sua beleza</span> com
-                naturalidade
+                <span className="text-gradient">realçar sua beleza</span>{" "}
+                com naturalidade
               </h1>
             </div>
 
@@ -85,7 +86,7 @@ export default function HeroSection() {
                 className="gap-2 rounded-full gradient-primary border-0 hover-glow hover-scale transition-all duration-300 shadow-lg"
                 data-testid="button-whatsapp-hero"
               >
-                <MessageCircle className="w-5 h-5" />
+                <FaWhatsapp className="w-5 h-5" />
                 Agendar no WhatsApp
               </Button>
               <Button

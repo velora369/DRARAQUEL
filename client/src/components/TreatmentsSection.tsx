@@ -108,20 +108,23 @@ export default function TreatmentsSection() {
           ))}
         </div>
 
-        <div className="mt-16">
-          <h3 className={`text-2xl font-semibold text-foreground text-center mb-8 ${isVisible ? "animate-fade-in" : "opacity-0"}`}>
+        <div className="mt-20">
+          <h3 className={`text-2xl font-semibold text-foreground text-center mb-12 ${isVisible ? "animate-fade-in" : "opacity-0"}`}>
             Outros Serviços
           </h3>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {otherServices.map((service, index) => (
               <div
                 key={index}
-                className={`glass-card p-4 rounded-2xl hover-lift transition-all duration-300 ${isVisible ? "animate-slide-up" : "opacity-0"}`}
+                className={`group relative p-6 rounded-2xl border border-border/50 bg-gradient-to-br from-background to-accent/5 hover:border-primary/30 hover:shadow-lg transition-all duration-500 ${isVisible ? "animate-slide-up" : "opacity-0"}`}
                 style={{ animationDelay: `${400 + index * 50}ms` }}
                 data-testid={`card-service-${index}`}
               >
-                <p className="font-medium text-foreground">{service.title}</p>
-                <p className="text-sm text-muted-foreground">
+                <div className="absolute top-0 left-6 w-12 h-1 bg-gradient-to-r from-primary/60 to-secondary/60 rounded-b-full transform origin-top group-hover:scale-x-110 transition-transform duration-300" />
+                <h4 className="text-lg font-semibold text-foreground mt-2 mb-2 group-hover:text-gradient transition-all duration-300">
+                  {service.title}
+                </h4>
+                <p className="text-sm text-muted-foreground leading-relaxed">
                   {service.description}
                 </p>
               </div>

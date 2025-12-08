@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, MessageCircle } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 
 const navItems = [
   { label: "Início", href: "#inicio" },
-  { label: "Sobre a Dra.", href: "#sobre" },
+  { label: "Sobre a Dra", href: "#sobre" },
   { label: "Tratamentos", href: "#tratamentos" },
   { label: "Diferenciais", href: "#diferenciais" },
   { label: "Orallis Unique", href: "#orallis" },
@@ -94,7 +95,7 @@ export default function Header() {
               className="hidden sm:flex gap-2 rounded-full gradient-primary border-0 hover-glow transition-all duration-300"
               data-testid="button-whatsapp-header"
             >
-              <MessageCircle className="w-4 h-4" />
+              <FaWhatsapp className="w-4 h-4" />
               Agendar Avaliação
             </Button>
 
@@ -141,7 +142,7 @@ export default function Header() {
             className="mt-3 gap-2 rounded-full gradient-primary"
             data-testid="button-whatsapp-mobile"
           >
-            <MessageCircle className="w-4 h-4" />
+            <FaWhatsapp className="w-4 h-4" />
             Agendar Avaliação
           </Button>
         </nav>

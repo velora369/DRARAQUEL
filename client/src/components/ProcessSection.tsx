@@ -60,8 +60,6 @@ export default function ProcessSection() {
         </div>
 
         <div className="relative">
-          <div className="hidden lg:block absolute top-28 left-[10%] right-[10%] h-0.5 bg-gradient-to-r from-primary/20 via-secondary/40 to-primary/20" />
-
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {steps.map((step, index) => (
               <div
