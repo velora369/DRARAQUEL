@@ -1,0 +1,209 @@
+Crie uma landing page completa em português (Brasil) para a Dra. Raquel Saraiva, especialista em harmonização orofacial, estética facial e reabilitação oral.
+Atenção: o site é institucional da Dra. Raquel, porém deve apresentar, de forma secundária e complementar, o espaço onde ela atua: a clínica Orallis Unique, reforçando credibilidade e estrutura — sem transformar o site em um site da Orallis.
+
+Diretrizes gerais
+	•	Estilo visual: moderno, sofisticado, feminino, minimalista e acolhedor, alinhado à identidade visual da Orallis (mas aplicado como referência estética, não como marca principal do site).
+	•	Linguagem focada no público feminino de 30 a 45 anos, comunicando naturalidade, experiência e segurança.
+	•	Layout responsivo, com boa hierarquia visual e seções claras.
+	•	Conteúdo sempre enfatizando que a profissional é o centro da comunicação.
+
+⸻
+
+Identidade visual usada como referência estética
+
+Usar as cores, a suavidade e o estilo do manual da Orallis, mas sempre aplicando de maneira que transmita:
+“Site da Dra. Raquel, que atende no espaço Orallis Unique.”
+
+Paleta de cores baseada no material da Orallis:
+	•	Verde Orallis (próximo ao Pantone 2463 C) — como cor de destaque suave
+	•	Caramelo/dourado (Pantone 2470 C) — botões e detalhes
+	•	Marrom escuro — textos secundários
+	•	Bege claro / off-white — áreas de fundo
+	•	Rosa blush bem claro — detalhes femininos
+	•	Branco puro — fundo principal
+
+Tipografia sugerida:
+	•	Títulos: fonte moderna sem serifa (ex.: Montserrat / Poppins)
+	•	Textos: mesma família em peso mais leve
+	•	Destaques manuscritos: script suave apenas em pequenos títulos (ex.: “Quem sou eu?”)
+
+⸻
+
+Estrutura completa da landing page
+
+1. Header (fixo)
+	•	Fundo branco, logo pequena da Dra. Raquel (nome tipográfico)
+	•	Menu:
+	•	Início
+	•	Sobre a Dra.
+	•	Tratamentos
+	•	Diferenciais
+	•	Orallis Unique (espaço físico)
+	•	Depoimentos
+	•	Resultados
+	•	Contato
+	•	Botão de destaque:
+	•	“Agendar avaliação”
+	•	Link: https://wa.me/5561982184800
+
+⸻
+
+2. Hero Section (dobrada inicial)
+
+Posicionamento claro:
+“Dra. Raquel Saraiva — Estética Oral e Facial com Naturalidade”
+
+Elementos:
+	•	Headline:
+“Harmonização e estética facial para realçar sua beleza com naturalidade”
+	•	Subheadline explicando seu diferencial:
+“Com mais de 25 anos de experiência, a Dra. Raquel une odontologia, estética e técnicas avançadas de rejuvenescimento para suavizar marcas e valorizar a beleza natural de cada paciente.”
+	•	Bullet points:
+	•	Reabilitação oral integrada
+	•	Preenchimento labial natural
+	•	Harmonização orofacial completa
+	•	Atendimento acolhedor e individualizado
+	•	Botões:
+	•	Principal: Agendar no WhatsApp
+	•	Secundário: Ver tratamentos
+	•	Imagem: placeholder de foto da doutora (será substituída depois)
+
+⸻
+
+3. Seção “Sobre a Dra. Raquel Saraiva”
+
+Texto baseado na mini-bio:
+
+“Cirurgiã-dentista formada há mais de 25 anos, com especialização em prótese, endodontia, implantodontia e harmonização orofacial. Realiza atualizações constantes com os melhores profissionais do Brasil e do mundo. Atua com um olhar detalhado, buscando resultados sutis, seguros e totalmente alinhados à beleza natural de cada paciente.”
+
+Destaques com ícones:
+	•	+25 anos de experiência
+	•	Diversas especializações
+	•	Atualizações constantes
+	•	Foco em naturalidade
+
+⸻
+
+4. Seção: “A Dra. Raquel atende na Orallis Unique”
+
+Objetivo: reforçar a estrutura da clínica sem parecer que o site é dela.
+
+Texto sugerido:
+
+“A Dra. Raquel realiza seus atendimentos na Orallis Unique, um espaço pensado para proporcionar conforto, acolhimento e tecnologia de ponta em estética oral e facial.
+A Orallis é o ambiente onde a doutora pratica seu cuidado especializado — mas este site é dedicado exclusivamente ao trabalho da Dra. Raquel.”
+	•	Fotos do espaço (por enquanto placeholders)
+	•	Destaques da clínica:
+	•	Ambiente acolhedor
+	•	Tecnologia avançada
+	•	Atendimento personalizado
+	•	Estrutura premium
+
+⸻
+
+5. Seção “Tratamentos”
+
+Dividir em 3 tratamentos principais + outros serviços.
+
+Tratamentos principais (cards maiores):
+	1.	Reabilitação Oral
+	2.	Preenchimento Labial Natural
+	3.	Harmonização Orofacial Completa
+
+Outros serviços (cards menores):
+	•	Dentística
+	•	Prótese
+	•	Endodontia
+	•	Ortodontia
+	•	Implantodontia
+	•	Cirurgia Bucomaxilofacial
+
+Cada card deve ter: ícone, título e 2–3 linhas de texto focado nos benefícios.
+
+⸻
+
+6. Seção “Diferenciais da Dra. Raquel”
+	•	Planejamento estético totalmente personalizado
+	•	Resultados naturais
+	•	Multiespecialização
+	•	Atendimento acolhedor e humanizado
+	•	Técnicas modernas e seguras
+	•	Experiência de mais de 25 anos
+
+⸻
+
+7. Seção “Entenda como funciona o atendimento”
+
+Passo a passo:
+	1.	Avaliação completa
+	2.	Planejamento estético personalizado
+	3.	Procedimentos realizados com técnicas avançadas
+	4.	Acompanhamento pós-tratamento
+
+⸻
+
+8. Seção “Resultados” (Antes e Depois)
+	•	Criar carrossel com espaço reservado
+	•	Usar imagens ilustrativas até a doutora enviar as reais
+
+⸻
+
+9. Seção “Depoimentos”
+	•	Criar cards/carrossel
+	•	Inserir textos temporários (serão substituídos depois)
+
+⸻
+
+10. FAQ – Perguntas Frequentes
+
+Exemplos:
+	•	Os resultados ficam naturais?
+	•	Os procedimentos doem?
+	•	Quanto tempo dura o efeito?
+	•	Quando aparecem os resultados?
+	•	Como é a recuperação?
+
+⸻
+
+11. Seção “Contato e Agendamento”
+
+Informações:
+	•	Dra. Raquel Saraiva
+	•	WhatsApp: (61) 98218-4800
+	•	Local de atendimento: Orallis Unique
+	•	Horário: 8h às 18h
+	•	Redes sociais:
+	•	@draraquelsaraiva
+	•	@orallisunique
+
+Elementos:
+	•	Botão de WhatsApp (principal CTA)
+	•	Formulário de contato com nome, telefone, e-mail e mensagem
+	•	Mapa incorporado (localização da Orallis)
+
+⸻
+
+12. Rodapé
+	•	Pequeno logo da Dra. Raquel (nome estilizado)
+	•	Frase: “Cuidando da sua estética oral e facial com naturalidade e excelência.”
+	•	Menus reduzidos
+	•	Ícones das redes
+	•	Linha final:
+“©️ Dra. Raquel Saraiva. Atendimento realizado na Orallis Unique. Todos os direitos reservados.”
+
+⸻
+
+SEO
+
+Meta title:
+Dra. Raquel Saraiva | Estética Oral e Facial em Brasília
+
+Meta description:
+Harmonização orofacial, preenchimento labial natural e reabilitação oral com a Dra. Raquel Saraiva. Atendimento na clínica Orallis Unique. Agende sua avaliação.
+
+⸻
+
+Logo clinica orallis: https://yungwizzeprod2.wordpress.com/wp-content/uploads/2025/12/whatsapp-image-2025-12-08-at-02.42.04.webp 
+
+Img dra raquel 1: https://yungwizzeprod2.wordpress.com/wp-content/uploads/2025/12/nao-e-a-aparencia-e-a-essencia.-nao-e-o-dinheiro-e-a-educacao.-nao-e-a-roupa-e-a-classe.-c.webp
+Img dra raquel 2: https://yungwizzeprod2.wordpress.com/wp-content/uploads/2025/12/sua-melhor-versao-nao-e-quando-vc-esta-com-sua-melhor-roupa-ou-maquiageme280a6-e-assim-quando-vc-se-.webp 
