@@ -36,7 +36,7 @@ export default function OrallisSection() {
     >
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-      
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <div className={`space-y-8 ${isVisible ? "animate-slide-up" : "opacity-0"}`}>
@@ -100,40 +100,31 @@ export default function OrallisSection() {
                   data-testid="img-orallis-logo"
                 />
               </div>
-              <div className="aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-primary/10 to-secondary/10 flex flex-col items-center justify-center shadow-lg">
-                <div className="text-center p-4">
-                  <div className="w-12 h-12 rounded-full bg-muted/50 flex items-center justify-center mx-auto mb-2">
-                    <Home className="w-6 h-6 text-muted-foreground/50" />
-                  </div>
-                  <p className="text-sm text-muted-foreground">
-                    Foto do espaço
-                  </p>
-                  <p className="text-xs text-muted-foreground/70">Em breve</p>
-                </div>
+              <div className="aspect-square rounded-3xl overflow-hidden bg-muted shadow-lg group">
+                <img
+                  src="https://yungwizzeprod2.wordpress.com/wp-content/uploads/2026/01/imagem-oralis-2.webp"
+                  alt="Espaço Orallis Unique"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  loading="lazy"
+                />
               </div>
             </div>
             <div className="space-y-4 pt-8">
-              <div className="aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-secondary/10 to-primary/10 flex flex-col items-center justify-center shadow-lg">
-                <div className="text-center p-4">
-                  <div className="w-12 h-12 rounded-full bg-muted/50 flex items-center justify-center mx-auto mb-2">
-                    <Star className="w-6 h-6 text-muted-foreground/50" />
-                  </div>
-                  <p className="text-sm text-muted-foreground">
-                    Foto da recepção
-                  </p>
-                  <p className="text-xs text-muted-foreground/70">Em breve</p>
-                </div>
+              <div className="aspect-square rounded-3xl overflow-hidden bg-muted shadow-lg group">
+                <img
+                  src="https://yungwizzeprod2.wordpress.com/wp-content/uploads/2026/01/recepcao-3.webp"
+                  alt="Recepção Orallis Unique"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  loading="lazy"
+                />
               </div>
-              <div className="aspect-[4/5] rounded-3xl overflow-hidden bg-gradient-to-br from-accent/40 to-muted flex flex-col items-center justify-center shadow-lg">
-                <div className="text-center p-4">
-                  <div className="w-12 h-12 rounded-full bg-muted/50 flex items-center justify-center mx-auto mb-2">
-                    <Cpu className="w-6 h-6 text-muted-foreground/50" />
-                  </div>
-                  <p className="text-sm text-muted-foreground">
-                    Foto do consultório
-                  </p>
-                  <p className="text-xs text-muted-foreground/70">Em breve</p>
-                </div>
+              <div className="aspect-[4/5] rounded-3xl overflow-hidden bg-muted shadow-lg group">
+                <img
+                  src="https://yungwizzeprod2.wordpress.com/wp-content/uploads/2026/01/recepcao-.webp"
+                  alt="Consultório Orallis Unique"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  loading="lazy"
+                />
               </div>
             </div>
           </div>

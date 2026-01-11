@@ -50,11 +50,10 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
           ? "glass shadow-lg py-2"
           : "bg-transparent py-4"
-      }`}
+        }`}
       data-testid="header"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -64,7 +63,7 @@ export default function Header() {
             className="flex items-center gap-2 group"
             data-testid="link-home"
           >
-            <span className="font-serif text-xl lg:text-2xl font-semibold text-foreground group-hover:text-gradient transition-all duration-300">
+            <span className="font-serif text-lg lg:text-xl font-semibold text-foreground group-hover:text-gradient transition-all duration-300 whitespace-nowrap">
               Dra. Raquel Saraiva
             </span>
           </button>
@@ -74,11 +73,10 @@ export default function Header() {
               <button
                 key={item.href}
                 onClick={() => scrollToSection(item.href)}
-                className={`relative px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 ${
-                  activeSection === item.href
+                className={`relative px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 whitespace-nowrap ${activeSection === item.href
                     ? "text-primary"
                     : "text-muted-foreground hover:text-foreground"
-                }`}
+                  }`}
                 data-testid={`link-nav-${item.href.replace("#", "")}`}
               >
                 {item.label}
@@ -92,6 +90,7 @@ export default function Header() {
           <div className="flex items-center gap-3">
             <Button
               onClick={() => window.open("https://wa.me/5561982184800", "_blank")}
+              size="sm"
               className="hidden sm:flex gap-2 rounded-full gradient-primary border-0 hover-glow transition-all duration-300"
               data-testid="button-whatsapp-header"
             >
@@ -116,9 +115,8 @@ export default function Header() {
       </div>
 
       <div
-        className={`lg:hidden overflow-hidden transition-all duration-500 ease-in-out ${
-          isMobileMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
-        }`}
+        className={`lg:hidden overflow-hidden transition-all duration-500 ease-in-out ${isMobileMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
+          }`}
         data-testid="nav-mobile"
       >
         <nav className="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1 glass-card mt-2 mx-4 rounded-2xl">
@@ -126,11 +124,10 @@ export default function Header() {
             <button
               key={item.href}
               onClick={() => scrollToSection(item.href)}
-              className={`px-4 py-3 text-left rounded-xl transition-all duration-300 ${
-                activeSection === item.href
+              className={`px-4 py-3 text-left rounded-xl transition-all duration-300 ${activeSection === item.href
                   ? "bg-primary/10 text-primary"
                   : "text-muted-foreground hover:bg-muted"
-              }`}
+                }`}
               style={{ animationDelay: `${index * 50}ms` }}
               data-testid={`link-nav-mobile-${item.href.replace("#", "")}`}
             >
