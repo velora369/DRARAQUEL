@@ -117,12 +117,12 @@ export default function ResultsSection() {
                 {resultsSlides.map((result) => (
                   <div
                     key={result.id}
-                    className="w-full flex-shrink-0 px-2"
+                    className="w-full flex-shrink-0 px-2 flex justify-center"
                     data-testid={`card-result-${result.id}`}
                   >
-                    <div className="glass-card rounded-3xl overflow-hidden shadow-xl">
+                    <div className="glass-card rounded-3xl overflow-hidden shadow-xl w-full max-w-3xl">
                       <div className="p-6 lg:p-8">
-                        <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-lg">
+                        <div className="relative aspect-[4/3] lg:aspect-[3/2] xl:aspect-[5/3] rounded-3xl overflow-hidden shadow-lg max-h-[480px] mx-auto">
                           <img
                             src={result.imageUrl}
                             alt={`Transformação ${result.title}`}
