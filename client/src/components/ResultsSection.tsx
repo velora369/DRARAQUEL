@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import {
@@ -38,13 +38,36 @@ const resultsSlides = [
     imageUrl:
       "https://yungwizzeprod2.wordpress.com/wp-content/uploads/2026/02/whatsapp-image-2026-02-10-at-22.06.10.webp",
   },
+  {
+    id: "preenchimento-3",
+    title: "Preenchimento Labial",
+    description: "Volume natural e proporções equilibradas",
+    imageUrl:
+      "https://yungwizzeprod2.wordpress.com/wp-content/uploads/2026/02/whatsapp-image-2026-02-13-at-15.34.25-1.webp",
+  },
+  {
+    id: "botox-3",
+    title: "Botox (Toxina Botulínica)",
+    description: "Rejuvenescimento facial com resultado natural",
+    imageUrl:
+      "https://yungwizzeprod2.wordpress.com/wp-content/uploads/2026/02/whatsapp-image-2026-02-13-at-15.34.26-1.webp",
+  },
+  {
+    id: "botox-4",
+    title: "Botox (Toxina Botulínica)",
+    description: "Suavização de rugas e linhas de expressão",
+    imageUrl:
+      "https://yungwizzeprod2.wordpress.com/wp-content/uploads/2026/02/whatsapp-image-2026-02-13-at-15.34.26.webp",
+  },
 ];
 
 export default function ResultsSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isViewerOpen, setIsViewerOpen] = useState(false);
   const [activeSlide, setActiveSlide] = useState(resultsSlides[0]);
+  const [isPaused, setIsPaused] = useState(false);
   const { ref, isVisible } = useScrollAnimation(0.1);
+  const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
 
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev + 1) % resultsSlides.length);
@@ -61,17 +84,40 @@ export default function ResultsSection() {
     setIsViewerOpen(true);
   };
 
+  // Auto-play functionality
+  useEffect(() => {
+    if (!isPaused) {
+      autoPlayRef.current = setInterval(() => {
+        nextSlide();
+      }, 2000);
+    }
+
+    return () => {
+      if (autoPlayRef.current) {
+        clearInterval(autoPlayRef.current);
+      }
+    };
+  }, [isPaused, currentIndex]);
+
+  const handleMouseEnter = () => {
+    setIsPaused(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsPaused(false);
+  };
+
   return (
     <>
       <Dialog open={isViewerOpen} onOpenChange={setIsViewerOpen}>
         <DialogContent className="max-w-4xl overflow-hidden border-none bg-background p-0 shadow-2xl sm:rounded-[32px]">
-          <div className="relative bg-background">
+          <div className="bg-background">
             <img
               src={activeSlide.imageUrl}
               alt={`Transformação ${activeSlide.title} em alta resolução`}
-              className="h-full max-h-[80vh] w-full object-contain bg-black/5"
+              className="h-full max-h-[80vh] w-full object-contain"
             />
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background via-background/80 to-transparent p-6 sm:p-8">
+            <div className="p-6 sm:p-8">
               <DialogTitle className="text-xl font-semibold text-foreground sm:text-2xl">
                 {activeSlide.title}
               </DialogTitle>
@@ -108,39 +154,49 @@ export default function ResultsSection() {
             </p>
           </div>
 
-          <div className={`relative ${isVisible ? "animate-fade-in" : "opacity-0"}`} style={{ animationDelay: "200ms" }}>
+          <div 
+            className={`relative ${isVisible ? "animate-fade-in" : "opacity-0"}`} 
+            style={{ animationDelay: "200ms" }}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            onTouchStart={handleMouseEnter}
+            onTouchEnd={handleMouseLeave}
+          >
             <div className="overflow-hidden rounded-3xl">
               <div
                 className="flex transition-transform duration-500 ease-out"
                 style={{ transform: `translateX(-${currentIndex * 100}%)` }}
               >
-                {resultsSlides.map((result) => (
+                {resultsSlides.map((result, index) => (
                   <div
                     key={result.id}
-                    className="w-full flex-shrink-0 px-2 flex justify-center"
+                    className="w-full flex-shrink-0 px-4 flex justify-center"
                     data-testid={`card-result-${result.id}`}
                   >
-                    <div className="glass-card rounded-3xl overflow-hidden shadow-xl w-full max-w-3xl">
-                      <div className="p-6 lg:p-8">
-                        <div className="relative aspect-[4/3] lg:aspect-[3/2] xl:aspect-[5/3] rounded-3xl overflow-hidden shadow-lg max-h-[480px] mx-auto">
-                          <img
-                            src={result.imageUrl}
-                            alt={`Transformação ${result.title}`}
-                            className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
-                            loading="lazy"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent pointer-events-none" />
-                        </div>
+                    <div className="inline-flex flex-col glass-card rounded-3xl">
+                      <div className={`pb-0 ${index === 2 ? 'pt-12 px-6' : 'p-6'}`}>
+                        <img
+                          src={result.imageUrl}
+                          alt={`Transformação ${result.title}`}
+                          style={{
+                            clipPath: 'inset(0 round 24px)',
+                            WebkitClipPath: 'inset(0 round 24px)',
+                          }}
+                          className="max-w-full h-auto block mx-auto lg:max-h-[45vh]"
+                          loading="lazy"
+                        />
                       </div>
-                      <div className="p-6 pt-0 text-center">
-                        <h3 className="font-semibold text-foreground text-lg">
+                      <div className={`px-6 text-center space-y-3 ${index === 2 ? 'py-20' : 'py-8'}`}>
+                        <h3 className="font-semibold text-foreground text-xl">
                           {result.title}
                         </h3>
-                        <p className="text-sm text-muted-foreground">{result.description}</p>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          {result.description}
+                        </p>
                         <button
                           type="button"
                           onClick={() => openViewer(result)}
-                          className="inline-flex items-center justify-center text-xs font-medium text-primary underline-offset-4 hover:underline mt-4"
+                          className="inline-flex items-center justify-center text-xs font-medium text-primary underline-offset-4 hover:underline pt-2"
                         >
                           Ver imagem em alta resolução
                         </button>
@@ -184,6 +240,14 @@ export default function ResultsSection() {
               >
                 <ChevronRight className="w-5 h-5" />
               </Button>
+            </div>
+
+            <div className="mt-8 flex justify-center">
+              <div className="glass-card rounded-2xl px-6 py-4 max-w-md text-center">
+                <p className="text-sm text-muted-foreground">
+                  Imagens autorizadas pelos pacientes
+                </p>
+              </div>
             </div>
           </div>
         </div>
