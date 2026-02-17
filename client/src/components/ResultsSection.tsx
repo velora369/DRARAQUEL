@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import {
@@ -8,6 +8,8 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+
+const SWIPE_THRESHOLD = 50;
 
 const resultsSlides = [
   {
@@ -68,15 +70,25 @@ export default function ResultsSection() {
   const [isPaused, setIsPaused] = useState(false);
   const { ref, isVisible } = useScrollAnimation(0.1);
   const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
+  const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
+  const isDragging = useRef(false);
+  const dragStartX = useRef<number>(0);
 
-  const nextSlide = () => {
+  const nextSlide = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % resultsSlides.length);
-  };
+  }, []);
 
-  const prevSlide = () => {
+  const prevSlide = useCallback(() => {
     setCurrentIndex(
       (prev) => (prev - 1 + resultsSlides.length) % resultsSlides.length
     );
+  }, []);
+
+  const handleButtonClick = (e: React.MouseEvent, action: () => void) => {
+    e.preventDefault();
+    e.stopPropagation();
+    action();
   };
 
   const openViewer = (slide: (typeof resultsSlides)[number]) => {
@@ -97,7 +109,7 @@ export default function ResultsSection() {
         clearInterval(autoPlayRef.current);
       }
     };
-  }, [isPaused, currentIndex]);
+  }, [isPaused, currentIndex, nextSlide]);
 
   const handleMouseEnter = () => {
     setIsPaused(true);
@@ -105,6 +117,54 @@ export default function ResultsSection() {
 
   const handleMouseLeave = () => {
     setIsPaused(false);
+    isDragging.current = false;
+  };
+
+  // Touch swipe handlers
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+    setIsPaused(true);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null || touchStartY.current === null) return;
+
+    const deltaX = e.changedTouches[0].clientX - touchStartX.current;
+    const deltaY = e.changedTouches[0].clientY - touchStartY.current;
+
+    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > SWIPE_THRESHOLD) {
+      if (deltaX < 0) {
+        nextSlide();
+      } else {
+        prevSlide();
+      }
+    }
+
+    touchStartX.current = null;
+    touchStartY.current = null;
+    setIsPaused(false);
+  };
+
+  // Mouse drag handlers
+  const handleMouseDown = (e: React.MouseEvent) => {
+    isDragging.current = true;
+    dragStartX.current = e.clientX;
+    setIsPaused(true);
+  };
+
+  const handleMouseUp = (e: React.MouseEvent) => {
+    if (!isDragging.current) return;
+    isDragging.current = false;
+
+    const deltaX = e.clientX - dragStartX.current;
+    if (Math.abs(deltaX) > SWIPE_THRESHOLD) {
+      if (deltaX < 0) {
+        nextSlide();
+      } else {
+        prevSlide();
+      }
+    }
   };
 
   return (
@@ -159,10 +219,14 @@ export default function ResultsSection() {
             style={{ animationDelay: "200ms" }}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            onTouchStart={handleMouseEnter}
-            onTouchEnd={handleMouseLeave}
           >
-            <div className="overflow-hidden rounded-3xl">
+            <div 
+              className="overflow-hidden rounded-3xl cursor-grab active:cursor-grabbing select-none"
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
+              onMouseDown={handleMouseDown}
+              onMouseUp={handleMouseUp}
+            >
               <div
                 className="flex transition-transform duration-500 ease-out"
                 style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -211,7 +275,7 @@ export default function ResultsSection() {
               <Button
                 variant="outline"
                 size="icon"
-                onClick={prevSlide}
+                onClick={(e) => handleButtonClick(e, prevSlide)}
                 className="rounded-full hover-lift transition-all duration-300"
                 data-testid="button-results-prev"
               >
@@ -222,7 +286,7 @@ export default function ResultsSection() {
                 {resultsSlides.map((_, index) => (
                   <button
                     key={index}
-                    onClick={() => setCurrentIndex(index)}
+                    onClick={(e) => { e.preventDefault(); setCurrentIndex(index); }}
                     className={`w-3 h-3 rounded-full transition-all duration-300 ${
                       index === currentIndex ? "bg-primary scale-125" : "bg-muted hover:bg-muted-foreground/30"
                     }`}
@@ -234,7 +298,7 @@ export default function ResultsSection() {
               <Button
                 variant="outline"
                 size="icon"
-                onClick={nextSlide}
+                onClick={(e) => handleButtonClick(e, nextSlide)}
                 className="rounded-full hover-lift transition-all duration-300"
                 data-testid="button-results-next"
               >

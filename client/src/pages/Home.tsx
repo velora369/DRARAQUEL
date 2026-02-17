@@ -6,7 +6,6 @@ import DifferentialsSection from "@/components/DifferentialsSection";
 import OrallisSection from "@/components/OrallisSection";
 import ProcessSection from "@/components/ProcessSection";
 import ResultsSection from "@/components/ResultsSection";
-import TestimonialsSection from "@/components/TestimonialsSection";
 import FAQSection from "@/components/FAQSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
@@ -24,7 +23,6 @@ export default function Home() {
         <OrallisSection />
         <ProcessSection />
         <ResultsSection />
-        <TestimonialsSection />
         <FAQSection />
         <ContactSection />
       </main>

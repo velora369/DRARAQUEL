@@ -9,7 +9,6 @@ const navItems = [
   { label: "Tratamentos", href: "#tratamentos" },
   { label: "Diferenciais", href: "#diferenciais" },
   { label: "Orallis Unique", href: "#orallis" },
-  { label: "Depoimentos", href: "#depoimentos" },
   { label: "Resultados", href: "#resultados" },
   { label: "Contato", href: "#contato" },
 ];
