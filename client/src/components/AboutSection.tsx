@@ -77,20 +77,22 @@ export default function AboutSection() {
               de cada paciente.
             </p>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
               {highlights.map((item, index) => (
                 <div
                   key={index}
-                  className={`glass-card p-4 rounded-2xl flex items-center gap-4 hover-lift transition-all duration-300 ${isVisible ? "animate-slide-up" : "opacity-0"}`}
+                  className={`glass-card min-w-0 p-3 sm:p-4 rounded-2xl flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:gap-4 hover-lift transition-all duration-300 ${isVisible ? "animate-slide-up" : "opacity-0"}`}
                   style={{ animationDelay: `${300 + index * 100}ms` }}
                   data-testid={`card-highlight-${index}`}
                 >
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center flex-shrink-0 icon-container">
-                    <item.icon className="w-6 h-6 text-primary" />
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center flex-shrink-0 icon-container">
+                    <item.icon className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
                   </div>
-                  <div>
-                    <p className="font-semibold text-foreground">{item.title}</p>
-                    <p className="text-sm text-muted-foreground">
+                  <div className="w-full min-w-0">
+                    <p className="font-semibold text-foreground leading-tight break-words">
+                      {item.title}
+                    </p>
+                    <p className="mt-0.5 text-sm text-muted-foreground leading-tight break-words sm:leading-snug">
                       {item.description}
                     </p>
                   </div>
