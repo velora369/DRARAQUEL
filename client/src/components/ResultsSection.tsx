@@ -10,6 +10,7 @@ import {
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const SWIPE_THRESHOLD = 50;
+const AUTOPLAY_RESUME_DELAY = 3000;
 
 const resultsSlides = [
   {
@@ -68,12 +69,16 @@ export default function ResultsSection() {
   const [isViewerOpen, setIsViewerOpen] = useState(false);
   const [activeSlide, setActiveSlide] = useState(resultsSlides[0]);
   const [isPaused, setIsPaused] = useState(false);
+  const [dragOffset, setDragOffset] = useState(0);
+  const [isGrabbing, setIsGrabbing] = useState(false);
   const { ref, isVisible } = useScrollAnimation(0.1);
   const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
+  const resumeTimerRef = useRef<NodeJS.Timeout | null>(null);
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
   const isDragging = useRef(false);
   const dragStartX = useRef<number>(0);
+  const carouselRef = useRef<HTMLDivElement>(null);
 
   const nextSlide = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % resultsSlides.length);
@@ -96,7 +101,8 @@ export default function ResultsSection() {
     setIsViewerOpen(true);
   };
 
-  // Auto-play functionality
+  // Auto-play — currentIndex removed from deps so the interval keeps its rhythm
+  // instead of restarting on every slide change
   useEffect(() => {
     if (!isPaused) {
       autoPlayRef.current = setInterval(() => {
@@ -109,22 +115,55 @@ export default function ResultsSection() {
         clearInterval(autoPlayRef.current);
       }
     };
-  }, [isPaused, currentIndex, nextSlide]);
+  }, [isPaused, nextSlide]);
+
+  // Resume auto-play with a delay after manual interaction
+  const scheduleResume = useCallback(() => {
+    if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current);
+    resumeTimerRef.current = setTimeout(() => {
+      setIsPaused(false);
+    }, AUTOPLAY_RESUME_DELAY);
+  }, []);
+
+  // Prevent page scroll during horizontal swipe — requires non-passive listener
+  useEffect(() => {
+    const el = carouselRef.current;
+    if (!el) return;
+
+    const onTouchMove = (e: TouchEvent) => {
+      if (touchStartX.current === null || touchStartY.current === null) return;
+      const dx = e.touches[0].clientX - touchStartX.current;
+      const dy = e.touches[0].clientY - touchStartY.current;
+      if (Math.abs(dx) > Math.abs(dy)) {
+        e.preventDefault();
+        setDragOffset(dx);
+      }
+    };
+
+    el.addEventListener("touchmove", onTouchMove, { passive: false });
+    return () => el.removeEventListener("touchmove", onTouchMove);
+  }, []);
 
   const handleMouseEnter = () => {
     setIsPaused(true);
   };
 
   const handleMouseLeave = () => {
-    setIsPaused(false);
+    if (!isDragging.current) {
+      setIsPaused(false);
+    }
     isDragging.current = false;
+    setIsGrabbing(false);
+    setDragOffset(0);
   };
 
   // Touch swipe handlers
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
     touchStartY.current = e.touches[0].clientY;
+    setIsGrabbing(true);
     setIsPaused(true);
+    if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current);
   };
 
   const handleTouchEnd = (e: React.TouchEvent) => {
@@ -132,6 +171,9 @@ export default function ResultsSection() {
 
     const deltaX = e.changedTouches[0].clientX - touchStartX.current;
     const deltaY = e.changedTouches[0].clientY - touchStartY.current;
+
+    setIsGrabbing(false);
+    setDragOffset(0);
 
     if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > SWIPE_THRESHOLD) {
       if (deltaX < 0) {
@@ -143,14 +185,28 @@ export default function ResultsSection() {
 
     touchStartX.current = null;
     touchStartY.current = null;
-    setIsPaused(false);
+    scheduleResume();
+  };
+
+  const handleTouchCancel = () => {
+    touchStartX.current = null;
+    touchStartY.current = null;
+    setIsGrabbing(false);
+    setDragOffset(0);
+    scheduleResume();
   };
 
   // Mouse drag handlers
   const handleMouseDown = (e: React.MouseEvent) => {
     isDragging.current = true;
     dragStartX.current = e.clientX;
+    setIsGrabbing(true);
     setIsPaused(true);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging.current) return;
+    setDragOffset(e.clientX - dragStartX.current);
   };
 
   const handleMouseUp = (e: React.MouseEvent) => {
@@ -158,6 +214,9 @@ export default function ResultsSection() {
     isDragging.current = false;
 
     const deltaX = e.clientX - dragStartX.current;
+    setIsGrabbing(false);
+    setDragOffset(0);
+
     if (Math.abs(deltaX) > SWIPE_THRESHOLD) {
       if (deltaX < 0) {
         nextSlide();
@@ -165,6 +224,7 @@ export default function ResultsSection() {
         prevSlide();
       }
     }
+    setIsPaused(false);
   };
 
   return (
@@ -220,16 +280,23 @@ export default function ResultsSection() {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            <div 
-              className="overflow-hidden rounded-3xl cursor-grab active:cursor-grabbing select-none"
+            <div
+              ref={carouselRef}
+              className={`overflow-hidden rounded-3xl select-none ${isGrabbing ? "cursor-grabbing" : "cursor-grab"}`}
               onTouchStart={handleTouchStart}
               onTouchEnd={handleTouchEnd}
+              onTouchCancel={handleTouchCancel}
               onMouseDown={handleMouseDown}
+              onMouseMove={handleMouseMove}
               onMouseUp={handleMouseUp}
             >
               <div
-                className="flex transition-transform duration-500 ease-out"
-                style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+                className="flex"
+                style={{
+                  transform: `translateX(calc(-${currentIndex * 100}% + ${dragOffset}px))`,
+                  transition: isGrabbing ? "none" : "transform 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+                  willChange: "transform",
+                }}
               >
                 {resultsSlides.map((result, index) => (
                   <div
@@ -237,7 +304,7 @@ export default function ResultsSection() {
                     className="w-full flex-shrink-0 px-4 flex justify-center"
                     data-testid={`card-result-${result.id}`}
                   >
-                    <div className="inline-flex flex-col glass-card rounded-3xl">
+                    <div className={`inline-flex flex-col glass-card rounded-3xl ${index === 5 || index === 6 ? 'justify-center' : ''}`}>
                       <div className={`pb-0 ${index === 2 ? 'pt-12 px-6' : 'p-6'}`}>
                         <img
                           src={result.imageUrl}
