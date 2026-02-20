@@ -12,7 +12,7 @@ const mainTreatments = [
   },
   {
     icon: Heart,
-    title: "Preenchimento Labial Natural",
+    title: "Preenchimento Labial",
     description:
       "Valorização dos lábios com técnicas que respeitam a harmonia facial, proporcionando resultados naturais e elegantes.",
     badge: "Popular",

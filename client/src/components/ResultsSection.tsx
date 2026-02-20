@@ -52,14 +52,14 @@ const resultsSlides = [
     title: "Botox (Toxina Botulínica)",
     description: "Rejuvenescimento facial com resultado natural",
     imageUrl:
-      "https://yungwizzeprod2.wordpress.com/wp-content/uploads/2026/02/whatsapp-image-2026-02-13-at-15.34.26-1.webp",
+      "https://yungwizzeprod2.wordpress.com/wp-content/uploads/2026/02/whatsapp-image-2026-02-20-at-15.17.30-1.webp",
   },
   {
     id: "botox-4",
     title: "Botox (Toxina Botulínica)",
     description: "Suavização de rugas e linhas de expressão",
     imageUrl:
-      "https://yungwizzeprod2.wordpress.com/wp-content/uploads/2026/02/whatsapp-image-2026-02-13-at-15.34.26.webp",
+      "https://yungwizzeprod2.wordpress.com/wp-content/uploads/2026/02/whatsapp-image-2026-02-20-at-15.17.30.webp",
   },
 ];
 
@@ -170,19 +170,19 @@ export default function ResultsSection() {
   return (
     <>
       <Dialog open={isViewerOpen} onOpenChange={setIsViewerOpen}>
-        <DialogContent className="max-w-4xl overflow-hidden border-none bg-background p-0 shadow-2xl sm:rounded-[32px]">
-          <div className="bg-background">
+        <DialogContent className="max-w-2xl overflow-hidden border border-white/10 bg-black/90 backdrop-blur-xl p-0 shadow-2xl sm:rounded-[28px]">
+          <div className="flex flex-col">
             <img
               src={activeSlide.imageUrl}
-              alt={`Transformação ${activeSlide.title} em alta resolução`}
-              className="h-full max-h-[80vh] w-full object-contain"
+              alt={`Transformação ${activeSlide.title}`}
+              className="w-full max-h-[70vh] object-contain"
             />
-            <div className="p-6 sm:p-8">
-              <DialogTitle className="text-xl font-semibold text-foreground sm:text-2xl">
+            <div className="px-6 py-4 border-t border-white/10 flex items-center justify-center">
+              <DialogTitle className="text-sm font-light tracking-[0.25em] uppercase text-white/80">
                 {activeSlide.title}
               </DialogTitle>
-              <DialogDescription className="mt-1 text-sm text-muted-foreground sm:text-base">
-                {activeSlide.description}
+              <DialogDescription className="sr-only">
+                {activeSlide.title}
               </DialogDescription>
             </div>
           </div>
@@ -246,7 +246,7 @@ export default function ResultsSection() {
                             clipPath: 'inset(0 round 24px)',
                             WebkitClipPath: 'inset(0 round 24px)',
                           }}
-                          className="max-w-full h-auto block mx-auto lg:max-h-[45vh]"
+                          className={`max-w-full h-auto block mx-auto ${index === 5 || index === 6 ? 'lg:max-h-[62vh]' : 'lg:max-h-[45vh]'}`}
                           loading="lazy"
                         />
                       </div>
@@ -260,9 +260,11 @@ export default function ResultsSection() {
                         <button
                           type="button"
                           onClick={() => openViewer(result)}
-                          className="inline-flex items-center justify-center text-xs font-medium text-primary underline-offset-4 hover:underline pt-2"
+                          className="inline-flex items-center gap-1.5 text-xs font-medium tracking-widest uppercase text-primary/70 hover:text-primary transition-colors pt-1"
                         >
-                          Ver imagem em alta resolução
+                          <span className="w-4 h-px bg-primary/50" />
+                          Ver resultado completo
+                          <span className="w-4 h-px bg-primary/50" />
                         </button>
                       </div>
                     </div>
